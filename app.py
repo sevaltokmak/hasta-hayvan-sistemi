@@ -4,9 +4,7 @@ import os
 
 app = Flask(__name__)
 
-DB_PATH = os.path.join(os.getcwd(), "database.db")
-UPLOAD_FOLDER = "uploads"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+DB_PATH = "database.db"
 
 
 # 🗄 VERİTABANI
@@ -37,9 +35,9 @@ def init_db():
 init_db()
 
 
-# 🏠 ANASAYFA
+# 🏠 ANA SAYFA
 @app.route("/")
-def kullanici():
+def index():
     return render_template("kullanici.html")
 
 
@@ -70,21 +68,14 @@ def gonder():
     aciklama = request.form.get("aciklama", "")
     konum = request.form.get("konum", "")
 
-    foto = request.files.get("foto")
-    foto_yolu = ""
-
-    if foto and foto.filename != "":
-        foto_yolu = os.path.join(UPLOAD_FOLDER, foto.filename)
-        foto.save(foto_yolu)
-
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
     cursor.execute("""
     INSERT INTO kayitlar 
-    (isim, telefon, email, kategori, tur, durum, aciklama, konum, foto)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """, (isim, telefon, email, kategori, tur, durum, aciklama, konum, foto_yolu))
+    (isim, telefon, email, kategori, tur, durum, aciklama, konum)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    """, (isim, telefon, email, kategori, tur, durum, aciklama, konum))
 
     conn.commit()
     conn.close()
@@ -109,7 +100,7 @@ def panel():
 # 🔄 DURUM GÜNCELLE
 @app.route("/guncelle/<int:id>", methods=["POST"])
 def guncelle(id):
-    yeni_durum = request.form["durum"]
+    durum = request.form["durum"]
 
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -118,15 +109,15 @@ def guncelle(id):
     UPDATE kayitlar 
     SET vaka_durum=? 
     WHERE id=?
-    """, (yeni_durum, id))
+    """, (durum, id))
 
     conn.commit()
     conn.close()
 
-    return "✔ Güncellendi"
+    return "OK"
 
 
-# 📱 SORGU (SON KAYIT GÖSTERİR)
+# 📱 SORGU (SON KAYIT)
 @app.route("/sorgu", methods=["GET", "POST"])
 def sorgu():
     if request.method == "POST":
@@ -151,10 +142,7 @@ def sorgu():
     return render_template("sorgu.html")
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
-import os
-
+# 🚀 RENDER UYUMLU BAŞLATMA
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
