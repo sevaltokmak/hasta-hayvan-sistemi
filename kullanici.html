@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hasta Hayvan Bildirim Sistemi</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f5f7fb;
+    display: flex;
+}
+
+/* SOL PANEL */
+.left {
+    width: 25%;
+    background: #0d47a1;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.left img {
+    width: 120px;
+    margin-top: 20px;
+}
+
+.left h2 {
+    margin-top: 20px;
+}
+
+/* SAĞ PANEL */
+.right {
+    width: 75%;
+    padding: 40px;
+}
+
+/* FORM */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    width: 400px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background: #0d47a1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
+
+/* GÖRSEL ALANI */
+.images {
+    margin-top: 30px;
+}
+
+.images img {
+    width: 200px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- SOL TARAF -->
+<div class="left">
+
+<!-- 📌 LOGO -->
+<img src="static/balikesir_logo.png">
+
+<h2>🐾 Hasta Hayvan Bildirim Sistemi</h2>
+<p>Balıkesir Belediyesi</p>
+
+<hr>
+
+<p>📍 Sokak hayvanları için hızlı müdahale sistemi</p>
+
+</div>
+
+<!-- SAĞ TARAF -->
+<div class="right">
+
+<h2>👤 Kullanıcı Bilgileri</h2>
+
+<div class="card">
+
+<form action="/secim" method="POST">
+
+<input type="text" name="isim" placeholder="Ad Soyad" required>
+<input type="text" name="telefon" placeholder="Telefon" required>
+<input type="email" name="email" placeholder="E-posta" required>
+
+<select name="secim">
+<option value="Hayvan">🐾 Hayvan Bildirimi</option>
+<option value="Sikayet">🚨 Şikayet</option>
+</select>
+
+<button type="submit">Devam Et</button>
+
+</form>
+
+</div>
+
+<!-- 🐶 YAN GÖRSELLER -->
+<div class="images">
+    <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b">
+    <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006">
+    <img src="https://images.unsplash.com/photo-1560807707-8cc77767d783">
+</div>
+
+</div>
+
+</body>
+</html>
+{% endblock %}

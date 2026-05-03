@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>📋 Belediye Paneli</h2>
+
+<table border="1">
+<tr>
+<th>ID</th>
+<th>İsim</th>
+<th>Süreç</th>
+<th>Sonuç</th>
+<th>Güncelle</th>
+</tr>
+
+{% for v in veriler %}
+<tr>
+<td>{{ v[0] }}</td>
+<td>{{ v[1] }}</td>
+<td>{{ v[10] }}</td>
+<td>{{ v[11] }}</td>
+
+<td>
+<form action="/guncelle/{{ v[0] }}" method="POST">
+
+<select name="durum">
+<option>Alındı</option>
+<option>Değerlendiriliyor</option>
+<option>Yolda</option>
+<option>Müdahale Ediliyor</option>
+<option>Tedavi Edildi</option>
+<option>Tamamlandı</option>
+</select>
+
+<input type="text" name="sonuc" placeholder="Sonuç gir (örn: iyileşti)">
+
+<button type="submit">Güncelle</button>
+
+</form>
+</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

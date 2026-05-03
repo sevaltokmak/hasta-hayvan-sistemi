@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bildirim Takip</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f2f6fc;
+    text-align: center;
+}
+
+.card {
+    background: white;
+    width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    background: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h3>📱 Bildirim Takip</h3>
+
+<form method="POST">
+<input type="text" name="telefon" placeholder="Telefon numaranız">
+<button type="submit">Sorgula</button>
+</form>
+
+</div>
+
+{% if veriler %}
+
+<table>
+<tr>
+<th>Kategori</th>
+<th>Açıklama</th>
+<th>Süreç</th>
+</tr>
+
+{% for v in veriler %}
+<tr>
+<td>{{ v[4] }}</td>
+<td>{{ v[7] }}</td>
+
+<td>
+{% if v[10] == 'Alındı' %}
+🟡 Bildirim Alındı
+{% elif v[10] == 'Değerlendiriliyor' %}
+🔵 Değerlendiriliyor
+{% elif v[10] == 'Yolda' %}
+🚑 Ekip Yolda
+{% elif v[10] == 'Müdahale Ediliyor' %}
+🩺 Müdahale Ediliyor
+{% elif v[10] == 'Tedavi Edildi' %}
+🏥 Tedavi Edildi
+{% elif v[10] == 'Tamamlandı' %}
+✅ Tamamlandı
+{% endif %}
+</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+{% endif %}
+
+</body>
+</html>
+{% endblock %}

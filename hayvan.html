@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hayvan Bildirimi</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f2f6fc;
+}
+
+.navbar {
+    background: #0d6efd;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+.card {
+    background: white;
+    width: 400px;
+    margin: 50px auto;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    background: #198754;
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
+
+.small-btn {
+    background: #0d6efd;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">🐾 Hayvan Bildirimi</div>
+
+<div class="card">
+
+<form action="/gonder" method="POST" enctype="multipart/form-data">
+
+<input type="hidden" name="isim" value="{{ isim }}">
+<input type="hidden" name="telefon" value="{{ telefon }}">
+<input type="hidden" name="email" value="{{ email }}">
+<input type="hidden" name="kategori" value="Hayvan">
+
+<select name="tur">
+<option>Kedi</option>
+<option>Köpek</option>
+<option>Kuş</option>
+<option>Diğer</option>
+</select>
+
+<select name="durum">
+<option>Yaralı</option>
+<option>Aç</option>
+<option>Tehlikede</option>
+</select>
+
+<textarea name="aciklama" placeholder="Açıklama"></textarea>
+
+<input type="text" id="konum" name="konum" placeholder="Konum">
+
+<button type="button" class="small-btn" onclick="konumAl()">📍 Konum Al</button>
+
+<input type="file" name="foto">
+
+<button type="submit">Gönder</button>
+
+</form>
+
+</div>
+
+<script>
+function konumAl() {
+    navigator.geolocation.getCurrentPosition(function(pos) {
+        document.getElementById("konum").value =
+        pos.coords.latitude + "," + pos.coords.longitude;
+    });
+}
+</script>
+
+</body>
+</html>
+{% endblock %}

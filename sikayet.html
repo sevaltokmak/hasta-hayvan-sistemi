@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Şikayet</title>
+
+<style>
+body { background: #f2f6fc; font-family: Arial; }
+
+.card {
+    background: white;
+    width: 400px;
+    margin: 80px auto;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h3>🚨 Şikayet Bildirimi</h3>
+
+<form action="/gonder" method="POST">
+
+<input type="hidden" name="isim" value="{{ isim }}">
+<input type="hidden" name="telefon" value="{{ telefon }}">
+<input type="hidden" name="email" value="{{ email }}">
+<input type="hidden" name="kategori" value="Sikayet">
+
+<textarea name="aciklama" placeholder="Şikayetinizi yazın"></textarea>
+
+<button type="submit">Gönder</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
+{% endblock %}
